@@ -12,7 +12,7 @@ export const Header = () => {
 const styles = StyleSheet.create({
     header: {
         backgroundColor: '#6789ff',
-        padding: 20
+        padding: 18
     },
     text: {
         color: '#fff',

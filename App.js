@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Header } from './components/Header';
+import { TodoItem } from './components/TodoItem';
 
 
 export default function App() {
-  const [people, setPeople] = useState([
+  const [todos, setTodos] = useState([
     { name: "John Doee", id: 1 },
     { name: "Leanne Graham", id: 2 },
     { name: "Ervin Howell", id: 3 },
@@ -14,26 +16,28 @@ export default function App() {
   ])
 
 
-  const pressHandler = (id) => {
+ /*  const pressHandler = (id) => {
     setPeople((prevState) => {
       return prevState.filter(person => person.id != id)
     })
-  }
+  } */
 
   return (
     <View style={styles.container}>
       
-      
-      <FlatList
-        numColumns={2}
-        keyExtractor={(item) => item.id }
-        data={people}
-        renderItem = {({item}) => (
-          <TouchableOpacity onPress={() => pressHandler(item.id)}>
-            <Text style={styles.item}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      <Header />
+
+      <View style={styles.content}>
+        <View style={styles.List}>
+          <FlatList
+            keyExtractor={(item) => item.id}
+            data={todos} 
+            renderItem={({ item }) => (
+              <TodoItem item={item} />
+            )}
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -42,15 +46,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 40,
-    paddingHorizontal: 20
   },
-  item: {
-    backgroundColor: '#848594',
-    padding: 30,
-    color: '#fff',
-    marginTop: 40,
-    fontSize: 24,
-    marginHorizontal: 10,
-
+  content: {
+    padding: 40
   }
 });
