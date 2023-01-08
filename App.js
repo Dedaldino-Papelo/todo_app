@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, Alert } from 'react-native';
 import { AddTodos } from './components/AddTodos';
 import { Header } from './components/Header';
 import { TodoItem } from './components/TodoItem';
@@ -23,19 +23,36 @@ export default function App() {
     })
   }
 
+  const SubmitHandler = (text) => {
+    if(text !== ''){
+      setTodos((prevState) => {
+        return [
+          {name: text.trim(), id:Math.random()},
+          ...prevState,
+        ]
+      })
+    } else {
+      Alert.alert('Oops','You need to add a todo', [
+        {text: 'Back', onPress: () => console.log('alert closed')}
+      ])
+    }
+  }
+
   return (
     <View style={styles.container}>
       
       <Header />
 
       <View style={styles.content}>
-        <AddTodos />
+        <AddTodos SubmitHandler={SubmitHandler}  />
         <View style={styles.List}>
           <FlatList
             keyExtractor={(item) => item.id}
             data={todos} 
             renderItem={({ item }) => (
-              <TodoItem item={item} pressHandler={pressHandler} />
+              <TodoItem 
+              item={item} 
+              pressHandler={pressHandler} />
             )}
           />
         </View>
