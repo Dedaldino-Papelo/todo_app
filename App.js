@@ -24,18 +24,17 @@ export default function App() {
   }
 
   const SubmitHandler = (text) => {
-    if(text !== ''){
-      setTodos((prevState) => {
-        return [
-          {name: text.trim(), id:Math.random()},
-          ...prevState,
-        ]
-      })
-    } else {
-      Alert.alert('Oops','You need to add a todo', [
+    if(text === ''){
+      return Alert.alert('Oops','You need to add a todo', [
         {text: 'Back', onPress: () => console.log('alert closed')}
       ])
     }
+    setTodos((prevState) => {
+      return [
+        {name: text, id:Math.random()},
+        ...prevState,
+      ]
+    })
   }
 
   return (
@@ -71,6 +70,10 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   content: {
+    flex: 1,
     padding: 40
+  },
+  List: {
+    flex: 1
   }
 });

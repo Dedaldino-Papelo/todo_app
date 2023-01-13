@@ -6,7 +6,7 @@ export const AddTodos = ({ SubmitHandler }) => {
     const [text, setText] = useState()
 
     const changeHandler = (val) => {
-        setText(val)
+        setText(val.trim())
     }
 
   return (
